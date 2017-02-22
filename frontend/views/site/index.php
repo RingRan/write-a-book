@@ -6,7 +6,7 @@ $this->title = 'PHP工程师学习路线';
 ?>
 <div class="site-index">
     <div class="body-content">
-    	<h2 style="border-bottom: solid #000000;">PHP初级工程师</h2>
+    	<h2 style="border-bottom: solid #000000;">PHP工程师技能知识点</h2>
         <div class="row">
 		  <div class="col-sm-6 col-md-4">
 		    <div class="thumbnail">
@@ -83,6 +83,80 @@ $this->title = 'PHP工程师学习路线';
 		        <p>
 		        	<a href="#" class="btn btn-primary" role="button">Apache</a>
 		        	<a href="#" class="btn btn-default" role="button">Nginx</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+		      <img src="./img/linux.jpg" alt="数据库">
+		      <div class="caption">
+		        <h3>第七步：Linux服务器</h3>
+		        <p>
+		        	<a href="#" class="btn btn-primary" role="button">Linux基础</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+		      <img src="./img/web_secruity.jpg" alt="...">
+		      <div class="caption">
+		        <h3>第八步：Web安全</h3>
+		        <p>
+		        	<a href="#" class="btn btn-primary" role="button">Web安全</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+		      <img src="./img/cache.jpg" alt="web服务器" height="200" width="350">
+		      <div class="caption">
+		        <h3>第九步：缓存</h3>
+		        <p>
+		        	<a href="#" class="btn btn-primary" role="button">memcache</a>
+		        	<a href="#" class="btn btn-default" role="button">redis</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+		      <img src="./img/dashuju.jpg" alt="数据库">
+		      <div class="caption">
+		        <h3>第十步：大数据与高并发</h3>
+		        <p>
+		        	<a href="#" class="btn btn-primary" role="button">大数据与高并发</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+		      <img src="./img/gaokeyong.jpg" alt="...">
+		      <div class="caption">
+		        <h3>第十一步：高可用web应用</h3>
+		        <p>
+		        	<a href="#" class="btn btn-primary" role="button">高可用web应用</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+		      <img src="./img/neigong.jpg" alt="web服务器" height="200" width="350">
+		      <div class="caption">
+		        <h3>第十二步：内功修炼</h3>
+		        <p>
+		        	<a href="#" class="btn btn-primary" role="button">HTTP协议</a>
+		        	<a href="#" class="btn btn-default" role="button">数据结构与算法</a>
 		        </p>
 		      </div>
 		    </div>
