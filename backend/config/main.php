@@ -1,29 +1,31 @@
 <?php
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
-    require(__DIR__ . '/../../common/config/params-local.php'),
-    require(__DIR__ . '/params.php'),
-    require(__DIR__ . '/params-local.php')
+    require(__DIR__ . '/params.php')
 );
 
-return [
-    'id' => 'app-backend',
+$config = [
+    'id' => 'pfast-backend',
+//     'homeUrl'=>'site/index',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
         'request' => [
-            'csrfParam' => '_csrf-backend',
+            'cookieValidationKey' => 'w3BnewAWmCrjijzkiLucYD5Ty1Ym_V9F',
         ],
-        'user' => [
-            'identityClass' => 'common\models\User',
+        
+//         'urlManager' => [
+//             'enablePrettyUrl' => true,
+//             'showScriptName' => false,
+//         ],
+        
+        'user'=>[
+            'class'=>'yii\web\User',
+            'identityClass' => 'backend\models\AdminUser',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-        ],
-        'session' => [
-            // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+            'enableSession'=>true,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -31,20 +33,43 @@ return [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                    'logVars' => [],
                 ],
             ],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
     ],
     'params' => $params,
+    'language'=>'zh-CN'
 ];
+
+if (YII_ENV_DEV) {
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+    ];
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+        'generators' => [
+            'model' => [
+                'class' => 'yii\gii\generators\model\GeneratorCommon',
+                'templates' => [
+//                     'adminlte' => '..\..\vendor\yiisoft\yii2-gii\generators\model\adminlte',
+                    'adminlte' => '../../vendor/yiisoft/yii2-gii/generators/model/adminlte',
+                ]
+            ],
+            'crud' => [
+                'class' => 'yii\gii\generators\crud\Generator',
+                'templates' => [
+//                     'adminlte' => '..\..\vendor\yiisoft\yii2-gii\generators\crud\adminlte',
+                    'adminlte' => '../../vendor/yiisoft/yii2-gii/generators/crud/adminlte',
+                ]
+            ],
+        ]
+    ];
+}
+
+return $config;

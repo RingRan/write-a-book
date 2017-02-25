@@ -1,9 +1,9 @@
-<?php
+<?php 
 return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=zixisi',
+            'dsn' => 'mysql:host=localhost;dbname=writeabook',
             'username' => 'root',
             'password' => 'password',
             'charset' => 'utf8',

@@ -4,7 +4,6 @@
 
 $this->title = 'PHP工程师学习路线';
 ?>
-<div class="site-index">
     <div class="body-content">
     	<h2 style="border-bottom: solid #000000;">PHP工程师技能知识点</h2>
         <div class="row">
@@ -163,4 +162,3 @@ $this->title = 'PHP工程师学习路线';
 		  </div>
 		</div>
     </div>
-</div>
