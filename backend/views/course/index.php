@@ -82,7 +82,7 @@ $modelLesson = new \common\models\Lesson();
                 echo '  <td>' . $model->created_at . '</td>';
                 echo '  <td>' . $model->updated_at . '</td>';
                 echo '  <td class="center">';
-                echo '      <a class="btn btn-primary btn-sm" href="'. Url::toRoute(['chapter/index', 'roleId'=>$model->id]) .'"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>章节管理</a>';
+                echo '      <a class="btn btn-primary btn-sm" href="'. Url::toRoute(['chapter/index', 'courseId'=>$model->id]) .'"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>章节管理</a>';
                 echo '      <a id="view_btn" onclick="viewAction(' . $model->id . ')" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-zoom-in icon-white"></i>查看</a>';
                 echo '      <a id="edit_btn" onclick="editAction(' . $model->id . ')" class="btn btn-primary btn-sm" href="#"> <i class="glyphicon glyphicon-edit icon-white"></i>修改</a>';
                 echo '      <a id="delete_btn" onclick="deleteAction(' . $model->id . ')" class="btn btn-danger btn-sm" href="#"> <i class="glyphicon glyphicon-trash icon-white"></i>删除</a>';
@@ -175,7 +175,7 @@ $modelLesson = new \common\models\Lesson();
 	}
  function viewAction(id){
 		initModel(id, 'view', 'fun');
-	}
+ }
 
  function initEditSystemModule(data, type){
 	if(type == 'create'){
@@ -264,11 +264,9 @@ function deleteAction(id){
 				   }
 				});
 		});
-	}
-	else{
+	}else{
 		admin_tool.alert('msg_info', '请先选择要删除的数据', 'warning');
 	}
-    
 }
 
 function getSelectedIdValues(formId)

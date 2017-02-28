@@ -119,8 +119,7 @@ class CourseController extends Controller
             if($model->validate() == true && $model->save()){
                 $msg = array('errno'=>0, 'msg'=>'保存成功');
                 echo json_encode($msg);
-            }
-            else{
+            }else{
                 $msg = array('errno'=>2, 'data'=>$model->getErrors());
                 echo json_encode($msg);
             }

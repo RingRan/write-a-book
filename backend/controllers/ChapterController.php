@@ -16,20 +16,7 @@ use yii\filters\VerbFilter;
  */
 class ChapterController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+	public $layout = "lte_main";
 
     /**
      * Lists all Chapter models.
@@ -39,6 +26,7 @@ class ChapterController extends Controller
     {
         $query = Chapter::find();
         $querys = Yii::$app->request->get('query');
+        $courseId = Yii::$app->request->get('courseId');
         if(count($querys) > 0){
             $condition = "";
             $parame = array();
@@ -69,10 +57,12 @@ class ChapterController extends Controller
         ->offset($pagination->offset)
         ->limit($pagination->limit)
         ->all();
+        
         return $this->render('index', [
             'models'=>$models,
             'pages'=>$pagination,
             'query'=>$querys,
+            'courseId'=>$courseId,
         ]);
     }
 
@@ -83,9 +73,8 @@ class ChapterController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $model = $this->findModel($id);
+        echo json_encode($model->getAttributes());
     }
 
     /**
@@ -96,13 +85,22 @@ class ChapterController extends Controller
     public function actionCreate()
     {
         $model = new Chapter();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        
+        if ($model->load(Yii::$app->request->post()) ) {
+        	$model->status = Chapter::STATUS_PREPARING;
+        	$model->created_at = date('Y-m-d H:i:s');
+        	$model->updated_at = date('Y-m-d H:i:s');
+        	$model->level = Chapter::LEVEL_FIRST;
+	        if($model->validate() == true && $model->save()){
+	        		$msg = array('errno'=>0, 'msg'=>'保存成功');
+	        		echo json_encode($msg);
+	        } else{
+	        		$msg = array('errno'=>2, 'data'=>$model->getErrors());
+	        		echo json_encode($msg);
+	        }
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            $msg = array('errno'=>2, 'msg'=>$model->getErrors());
+            echo json_encode($msg);
         }
     }
 
@@ -112,16 +110,25 @@ class ChapterController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
+    	$id = Yii::$app->request->post('id');
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $model->updated_at = date('Y-m-d H:i:s');        
+        
+            if($model->validate() == true && $model->save()){
+                $msg = array('errno'=>0, 'msg'=>'保存成功');
+                echo json_encode($msg);
+            }
+            else{
+                $msg = array('errno'=>2, 'data'=>$model->getErrors());
+                echo json_encode($msg);
+            }
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            $msg = array('errno'=>2, 'msg'=>'数据出错');
+            echo json_encode($msg);
         }
     }
 
@@ -131,11 +138,14 @@ class ChapterController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete(array $ids)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+    	if(count($ids) > 0){
+            $c = Chapter::deleteAll(['in', 'id', $ids]);
+            echo json_encode(array('errno'=>0, 'data'=>$c, 'msg'=>json_encode($ids)));
+        }else{
+            echo json_encode(array('errno'=>2, 'msg'=>'参数错误'));
+        }
     }
 
     /**

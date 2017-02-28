@@ -33,14 +33,25 @@ class Lesson extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['course_id'], 'required'],
-            [['course_id', 'chapter_id', 'created_time', 'updated_time', 'delete_time'], 'integer'],
+            [['course_id', 'chapter_id', 'title'], 'required'],
+            [['course_id', 'chapter_id', 'status', 'order'], 'integer'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 40],
             [['desc'], 'string', 'max' => 500],
         ];
     }
 
+    public function getCourse()
+    {
+    	return $this->hasOne(Course::className(), ['id' => 'course_id']);
+    }
+    
+    public function getChapter()
+    {
+    	return $this->hasOne(Chapter::className(), ['id' => 'chapter_id']);
+    }
+    
+    
     /**
      * @inheritdoc
      */
@@ -48,14 +59,16 @@ class Lesson extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'course_id' => 'Course ID',
-            'chapter_id' => 'Chapter ID',
-            'title' => 'Title',
-            'desc' => 'Desc',
-            'content' => 'Content',
-            'created_time' => 'Created Time',
-            'updated_time' => 'Updated Time',
-            'delete_time' => 'Delete Time',
+            'course_id' => '所属课程',
+            'chapter_id' => '所属单元',
+            'title' => '内容标题',
+            'status' => '状态',
+            'order' => '排序顺序',
+            'desc' => '简介',
+            'content' => '内容',
+            'created_at' => '创建时间',
+            'updated_at' => '更新时间',
+            'deleted_at' => '删除时间',
         ];
     }
 }
